@@ -4,8 +4,19 @@ const Parameters = require("./Parameters");
 
 module.exports = class URL {
   constructor(a, b) {
-    const params   = typeof a === "string" ? a : undefined;
-    const loc      = typeof a === "object" ? a : b;
+    const params   = (
+      typeof a === "string"
+        ? a
+        : undefined
+    );
+
+    const loc      = (
+      typeof a === "object"
+        ? a
+        : typeof b === "string"
+          ? { href: b }
+          : b
+    );
 
     const location = {
       origin       : this.getUrlOrigin(params, loc),
@@ -60,7 +71,7 @@ module.exports = class URL {
     let end;
 
     if (typeof loc === "object") {
-      return this.getUrlOrigin(loc.origin || loc.href);
+      return this.getUrlOrigin(loc.origin || loc.href || loc.pathname);
     } else if (params.indexOf("http") === 0) {
       params = params.split("?")[0];
       end    = params.indexOf("/", params.indexOf("//") + 2);

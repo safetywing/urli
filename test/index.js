@@ -307,5 +307,61 @@ tinytest(function (test, load) {
       return "http://www.google.com/?search[]=John,male&search[]=sarah,female";
     });
 
+  test("/user/:userID (string HREF)")
+    .this(function () {
+      const l = new URL(
+        "/user/:userID",
+        "/user/SeanJM"
+      );
+      return l.params.userID;
+    })
+    .isEqual(function () {
+      return "SeanJM";
+    });
+
+  test("/user/:userID (object)")
+    .this(function () {
+      const l = new URL("/user/:userID", { pathname: "/user/SeanJM" });
+      return l.params.userID;
+    })
+    .isEqual(function () {
+      return "SeanJM";
+    });
+
+  test("/user/:userID?depth[]=:number+:id")
+    .this(function () {
+      const l = new URL("/user/:userID?depth[]=:number+:id", {
+        pathname : "/user/SeanJM",
+        search   : "?depth[]=0+o8jk&depth[]=1+99qE&depth[]=2+eBPs"
+      });
+      return l.search.depth;
+    })
+    .isDeepEqual(function () {
+      return [{
+        number: 0,
+        id    : "o8jk"
+      }, {
+        number: 1,
+        id    : "99qE"
+      }, {
+        number: 2,
+        id    : "eBPs"
+      }];
+    });
+
+  test("/post/:postID?origin=... (manipulating a mapped object)")
+    .this(function () {
+        const l = new URL("/post/:postID?origin=board+:category+:page", {
+        pathname: "/post/ezAYhlkuGEz",
+        search  : "?origin=board+food+1"
+      });
+
+      l.search.origin.category = "fitness";
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "/post/ezAYhlkuGEz?origin=board+fitness+1";
+    });
+
   load();
 });
