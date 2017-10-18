@@ -13,12 +13,13 @@ function Search(location) {
 
 function getType(element, type) {
   let res = {
-    type : type,
-    map  : []
+    delimiter : element && element.indexOf(",") > -1 ? "," : "+",
+    type      : type,
+    map       : []
   };
 
   if (element) {
-    element.split("+").forEach(name => {
+    element.split(res.delimiter).forEach(name => {
       if (name[0] === ":") {
         res.map.push(name.substring(1));
       } else {
@@ -73,16 +74,17 @@ Search.prototype.fromString = function (search) {
   for (let i = 0, n = list.length; i < n; i++) {
     list[i]    = list[i].split("=").map(decodeURI);
     t.isArray  = list[i][0].slice(-2) === "[]";
-    t.schema   = this.__schema[list[i][0]];
-    t.isSchema = t.schema && t.schema.map.length;
 
     if (t.isArray) {
       list[i][0]       = list[i][0].slice(0, -2);
       this[list[i][0]] = this[list[i][0]] || [];
     }
 
+    t.schema   = this.__schema[list[i][0]];
+    t.isSchema = t.schema && t.schema.map.length;
+
     if (t.isSchema) {
-      t.split = list[i][1].split("+");
+      t.split = list[i][1].split(t.schema.delimiter);
       t.value = {};
 
       for (var x = 0, y = t.split.length; x < y; x++) {
@@ -123,53 +125,74 @@ Search.prototype.fromString = function (search) {
   }
 };
 
+function getSchemaArray(key, value, schema) {
+  let t = [];
+
+  for (var i = 0, n = value.length; i < n; i++) {
+    t.push([
+      encodeURI(key) + "[]="
+    ]);
+
+    for (var x in value[i]) {
+      t[i].push(value[i][x]);
+    }
+
+    t[i] = t[i][0] + encodeURI(t[i].slice(1).join(schema.delimiter));
+  }
+
+  return t.join("&");
+}
+
+function getSchemaObject(key, value, schema) {
+  let temp = [ key + "=", [] ];
+
+  for (var i = 0, n = schema.map.length; i < n; i++) {
+    if (schema.map[i].constant) {
+      temp[1].push(schema.map[i].constant);
+    } else {
+      temp[1].push(value[schema.map[i]]);
+    }
+  }
+
+  return encodeURI(
+    temp[0] + temp[1].join("+")
+  );
+}
+
 Search.prototype.toString = function () {
   const search = [];
-  let   temp;
 
   for (let k in this) {
     if (this.hasOwnProperty(k) && k.substring(0, 2) !== "__") {
       if (this.__schema[k]) {
         if (this.__schema[k].type === "array") {
-          temp = [k + "=", []];
-
-          for (var i = 0, n = this[k].length; i < n; i++) {
-            temp[2] = [];
-            for (var x in this[k][i]) {
-              temp[2].push(this[k][i][x]);
-            }
-            temp[1].push(temp[2].join("+"));
-          }
-
-          temp[0] += temp[1].join(",");
-          search.push(temp[0]);
+          search.push(
+            getSchemaArray(k, this[k], this.__schema[k])
+          );
         } else if (this.__schema[k].type === "object") {
-          temp = [k + "=", []];
-
-          for (i = 0, n = this.__schema[k].map.length; i < n; i++) {
-            if (this.__schema[k].map[i].constant) {
-              temp[1].push(this.__schema[k].map[i].constant);
-            } else {
-              temp[1].push(this[k][this.__schema[k].map[i]]);
-            }
-          }
-
-          temp[0] += temp[1].join("+");
-          search.push(temp[0]);
+          search.push(
+            getSchemaObject(k, this[k], this.__schema[k])
+          );
         }
       } else if (
         typeof this[k] === "number" ||
         (typeof this[k] === "string" && this[k].length)
       ) {
-        search.push(k + "=" + this[k]);
+        search.push(
+          encodeURI(k + "=" + this[k])
+        );
       } else if (Array.isArray(this[k])) {
-        search.push(k + "=" + this[k].join("+"));
+        for (var i = 0, n = this[k].length; i < n; i++) {
+          search.push(
+            encodeURI(k) + "[]=" + encodeURI(this[k][i])
+          );
+        }
       }
     }
   }
 
   return search.length
-    ? "?" + encodeURI(search.join("&"))
+    ? "?" + search.join("&")
     : "";
 };
 

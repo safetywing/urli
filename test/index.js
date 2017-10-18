@@ -143,6 +143,7 @@ tinytest(function (test, load) {
           __schema     : {
             search : {
               type : "array",
+              delimiter : "+",
               map  : []
             }
           },
@@ -201,8 +202,9 @@ tinytest(function (test, load) {
         search: {
           __schema     : {
             search: {
-              type: "object",
-              map: [ "number" ]
+              delimiter : "+",
+              type      : "object",
+              map       : [ "number" ]
             }
           },
           __schemaKeys : [ "search" ],
@@ -217,6 +219,92 @@ tinytest(function (test, load) {
 
         isMatch: true
       };
+    });
+
+  test("http://www.google.com/?search[]=:number")
+    .this(function () {
+      let l = new URL("http://www.google.com/?search[]=:number", { href: "http://www.google.com/?search[]=1&search[]=2" });
+      return l;
+    })
+    .isDeepEqual(function () {
+      return {
+        origin: {
+          __origin : "http://www.google.com"
+        },
+
+        search: {
+          __schema     : {
+            search: {
+              delimiter : "+",
+              type      : "array",
+              map       : [ "number" ]
+            }
+          },
+          __schemaKeys : [ "search" ],
+          search       : [{ number: 1 }, { number: 2 }]
+        },
+
+        params: {
+          __path    : [],
+          __params  : [],
+          __isMatch : true
+        },
+
+        isMatch: true
+      };
+    });
+
+  test("http://www.google.com/ (toString)")
+    .this(function () {
+      let l = new URL("http://www.google.com/");
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "http://www.google.com/";
+    });
+
+  test("http://www.google.com/?search=2 (toString)")
+    .this(function () {
+      let l = new URL({ href: "http://www.google.com/?search=2" });
+      l.search.search = 3;
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "http://www.google.com/?search=3";
+    });
+
+  test("http://www.google.com/?search[]=1&search[]=2 (toString)")
+    .this(function () {
+      let l = new URL({ href: "http://www.google.com/?search[]=1&search[]=2" });
+      l.search.search[0] = 3;
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "http://www.google.com/?search[]=3&search[]=2";
+    });
+
+  test("http://www.google.com/?search[]=:number (toString)")
+    .this(function () {
+      let l = new URL("http://www.google.com/?search[]=:number", {
+        href: "http://www.google.com/?search[]=1&search[]=2"
+      });
+      l.search.search[0].number = 3;
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "http://www.google.com/?search[]=3&search[]=2";
+    });
+
+  test("http://www.google.com/?search[]=:name,:gender (toString)")
+    .this(function () {
+      let l = new URL("http://www.google.com/?search[]=:name,:gender", {
+        href: "http://www.google.com/?search[]=sean,male&search[]=sarah,female"
+      });
+      l.search.search[0].name = "John";
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "http://www.google.com/?search[]=John,male&search[]=sarah,female";
     });
 
   load();
