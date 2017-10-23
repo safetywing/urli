@@ -72,7 +72,7 @@ module.exports = class URL {
 
     if (typeof loc === "object") {
       return this.getUrlOrigin(loc.origin || loc.href || loc.pathname);
-    } else if (params.indexOf("http") === 0) {
+    } else if (params && params.indexOf("http") === 0) {
       params = params.split("?")[0];
       end    = params.indexOf("/", params.indexOf("//") + 2);
       origin = params.substring(0, end > -1 ? end : params.length);

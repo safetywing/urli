@@ -351,7 +351,7 @@ tinytest(function (test, load) {
 
   test("/post/:postID?origin=... (manipulating a mapped object)")
     .this(function () {
-        const l = new URL("/post/:postID?origin=board+:category+:page", {
+      const l = new URL("/post/:postID?origin=board+:category+:page", {
         pathname: "/post/ezAYhlkuGEz",
         search  : "?origin=board+food+1"
       });
@@ -361,6 +361,15 @@ tinytest(function (test, load) {
     })
     .isEqual(function () {
       return "/post/ezAYhlkuGEz?origin=board+fitness+1";
+    });
+
+  test("Empty")
+    .this(function () {
+      const l = new URL();
+      return l.toString();
+    })
+    .isEqual(function () {
+      return "/";
     });
 
   load();
