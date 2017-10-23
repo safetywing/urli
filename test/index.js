@@ -372,5 +372,15 @@ tinytest(function (test, load) {
       return "/";
     });
 
+  test("/a vs /a/b (does not match)")
+    .this(function () {
+      const a = new URL("/:a", "/a");
+      const b = new URL("/:a", "/a/b");
+      return a.isMatch && !b.isMatch;
+    })
+    .isEqual(function () {
+      return true;
+    });
+
   load();
 });
