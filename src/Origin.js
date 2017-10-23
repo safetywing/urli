@@ -1,9 +1,9 @@
-module.exports = class Origin {
-  constructor(location) {
-    this.__origin = location.origin;
-  }
+function Origin(location) {
+  this.__origin = location.origin;
+}
 
-  toString() {
-    return this.__origin ? this.__origin : "";
-  }
+Origin.prototype.toString = function () {
+  return this.__origin ? this.__origin : "";
 };
+
+module.exports = Origin;
