@@ -2,7 +2,7 @@ const Origin     = require("./Origin");
 const Search     = require("./Search");
 const Parameters = require("./Parameters");
 
-module.exports = class URL {
+class URL {
   constructor(a, b) {
     const params   = (
       typeof a === "string"
@@ -143,4 +143,6 @@ module.exports = class URL {
       this.search.toString()
     );
   }
-};
+}
+
+module.exports = URL;
