@@ -125,7 +125,7 @@ Search.prototype.fromString = function (search) {
   }
 };
 
-function getSchemaArray(key, value, schema) {
+function schemaArrayToString(key, value, schema) {
   let t = [];
 
   for (var i = 0, n = value.length; i < n; i++) {
@@ -143,13 +143,15 @@ function getSchemaArray(key, value, schema) {
   return t.join("&");
 }
 
-function getSchemaObject(key, value, schema) {
+function schemaObjectToString(key, value, schema) {
   let temp = [ key + "=", [] ];
+
+  value = value || {};
 
   for (var i = 0, n = schema.map.length; i < n; i++) {
     if (schema.map[i].constant) {
       temp[1].push(schema.map[i].constant);
-    } else {
+    } else if (value[schema.map[i]]) {
       temp[1].push(value[schema.map[i]]);
     }
   }
@@ -167,11 +169,11 @@ Search.prototype.toString = function () {
       if (this.__schema[k]) {
         if (this.__schema[k].type === "array") {
           search.push(
-            getSchemaArray(k, this[k], this.__schema[k])
+            schemaArrayToString(k, this[k], this.__schema[k])
           );
         } else if (this.__schema[k].type === "object") {
           search.push(
-            getSchemaObject(k, this[k], this.__schema[k])
+            schemaObjectToString(k, this[k], this.__schema[k])
           );
         }
       } else if (
