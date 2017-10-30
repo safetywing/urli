@@ -148,16 +148,12 @@ function schemaObjectToString(key, value, schema) {
 
   value = value || {};
 
-  if (schema.map.length) {
-    for (var i = 0, n = schema.map.length; i < n; i++) {
-      if (schema.map[i].constant) {
-        temp[1].push(schema.map[i].constant);
-      } else if (value[schema.map[i]]) {
-        temp[1].push(value[schema.map[i]]);
-      }
+  for (var i = 0, n = schema.map.length; i < n; i++) {
+    if (schema.map[i].constant) {
+      temp[1].push(schema.map[i].constant);
+    } else if (value[schema.map[i]]) {
+      temp[1].push(value[schema.map[i]]);
     }
-  } else {
-    temp[1].push(value);
   }
 
   return encodeURI(
@@ -170,7 +166,7 @@ Search.prototype.toString = function () {
 
   for (let k in this) {
     if (this.hasOwnProperty(k) && k.substring(0, 2) !== "__") {
-      if (this.__schema[k]) {
+      if (this.__schema[k] && this.__schema[k].map.length) {
         if (this.__schema[k].type === "array") {
           search.push(
             schemaArrayToString(k, this[k], this.__schema[k])

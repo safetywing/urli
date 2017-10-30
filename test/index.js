@@ -459,14 +459,14 @@ tinytest(function (test, load) {
 
   test("/board/:category?page")
     .this(function () {
-      let back = new URL("/user/:userID/:section?page");
-      back.params.userID  = "3948kdhf";
-      back.params.section = "shoes";
+      let back            = new URL("/user/:userID/:section?page");
+      back.params.userID  = "98374jf";
+      back.params.section = "comments";
       back.search.page    = 1;
       return back.toString();
     })
     .isDeepEqual(function () {
-      return "/user/3948kdhf/shoes?page=1";
+      return "/user/98374jf/comments?page=1";
     });
 
   load();
