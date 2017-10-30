@@ -9,7 +9,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin  : { __origin: "http://www.google.com" },
+        origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
         isMatch : true
@@ -23,7 +23,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin  : { __origin: "http://www.google.com" },
+        origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
         isMatch : true
@@ -37,7 +37,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin  : { __origin: "http://www.google.com" },
+        origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
         isMatch : true
@@ -51,7 +51,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin : { __origin: "http://www.google.com" },
+        origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
           __path    : [ "cat" ],
@@ -70,7 +70,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin : { __origin: "http://www.google.com" },
+        origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
           __path    : [ "cats", "dogs" ],
@@ -90,7 +90,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin : { __origin: "http://www.google.com" },
+        origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
           __path    : [ "cats" ],
@@ -110,7 +110,7 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return {
-        origin: { __origin: "http://www.google.com" },
+        origin: { value: "http://www.google.com" },
 
         search: {
           __schema     : {},
@@ -136,7 +136,7 @@ tinytest(function (test, load) {
     .isDeepEqual(function () {
       return {
         origin: {
-          __origin : "http://www.google.com"
+          value : "http://www.google.com"
         },
 
         search: {
@@ -169,7 +169,7 @@ tinytest(function (test, load) {
     .isDeepEqual(function () {
       return {
         origin: {
-          __origin : "http://www.google.com"
+          value : "http://www.google.com"
         },
 
         search: {
@@ -196,7 +196,7 @@ tinytest(function (test, load) {
     .isDeepEqual(function () {
       return {
         origin: {
-          __origin : "http://www.google.com"
+          value : "http://www.google.com"
         },
 
         search: {
@@ -229,7 +229,7 @@ tinytest(function (test, load) {
     .isDeepEqual(function () {
       return {
         origin: {
-          __origin : "http://www.google.com"
+          value : "http://www.google.com"
         },
 
         search: {
