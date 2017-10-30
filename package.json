@@ -17,6 +17,6 @@
   "devDependencies": {
     "eslint": "^4.9.0",
     "eslint-plugin-dependencies": "^2.4.0",
-    "tiny-test": "^0.9.2"
+    "tiny-test": "^0.9.4"
   }
 }
