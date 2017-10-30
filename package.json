@@ -1,6 +1,6 @@
 {
   "name": "urli",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "An interface for manipulating and querying a URL",
   "main": "index.js",
   "scripts": {
