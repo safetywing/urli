@@ -1,9 +1,9 @@
 function Origin(location) {
-  this.__origin = location.origin;
+  this.value = location.origin;
 }
 
 Origin.prototype.toString = function () {
-  return this.__origin ? this.__origin : "";
+  return this.value ? this.value : "";
 };
 
 module.exports = Origin;
