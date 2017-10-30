@@ -4,7 +4,7 @@ const clear = require("./clear");
 function Parameters(location) {
   this.__path    = location.pathname.split("/").filter(a => a.length);
   this.__params  = location.params.split("/").filter(a => a.length);
-  this.__isMatch = this.__path.length === this.__params.length;
+  this.__isMatch = this.__params.length === 0 || this.__path.length === this.__params.length;
 
   if (this.__params.length === 1 && this.__params[0] === "*") {
     this.__params = this.__path.slice();

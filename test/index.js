@@ -382,5 +382,80 @@ tinytest(function (test, load) {
       return true;
     });
 
+  test("*?origin=user+:userID+:section+:page")
+    .this(function () {
+      let l = new URL("*?origin=user+:userID+:section+:page", { href: "http://www.domain.com/?origin=user+98fjhd+all+1" });
+      return l;
+    })
+    .isDeepEqual(function () {
+      return {
+        origin: { value: "http://www.domain.com" },
+
+        search: {
+          __schema     : {
+            origin: {
+              delimiter: "+",
+              type : "object",
+              map: [ { constant: "user" }, "userID", "section", "page" ]
+            }
+          },
+          __schemaKeys : [ "origin" ],
+          origin       : {
+            user: "user",
+            userID: "98fjhd",
+            section: "all",
+            page : 1
+          }
+        },
+
+        params: {
+          __path    : [],
+          __params  : [],
+          __isMatch : true
+        },
+
+        isMatch: true
+      };
+    });
+
+  test("*?origin=user+:userID+:section+:page (pathname, search)")
+    .this(function () {
+      let l = new URL("*?origin=user+:userID+:section+:page", {
+        pathname : "/post/p398dfjkj",
+        search   : "?origin=user+98fjhd+all+1"
+      });
+      return l;
+    })
+    .isDeepEqual(function () {
+      return {
+        origin: { value: false },
+
+        search: {
+          __schema     : {
+            origin: {
+              delimiter: "+",
+              type : "object",
+              map: [ { constant: "user" }, "userID", "section", "page" ]
+            }
+          },
+          __schemaKeys : [ "origin" ],
+          origin       : {
+            user: "user",
+            userID: "98fjhd",
+            section: "all",
+            page : 1
+          }
+        },
+
+        params: {
+          __path    : [ "post", "p398dfjkj" ],
+          __params  : [],
+          __isMatch : true
+        },
+
+        isMatch: true
+      };
+    });
+
   load();
 });
