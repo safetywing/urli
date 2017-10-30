@@ -457,5 +457,17 @@ tinytest(function (test, load) {
       };
     });
 
+  test("/board/:category?page")
+    .this(function () {
+      let back = new URL("/user/:userID/:section?page");
+      back.params.userID  = "3948kdhf";
+      back.params.section = "shoes";
+      back.search.page    = 1;
+      return back.toString();
+    })
+    .isDeepEqual(function () {
+      return "/user/3948kdhf/shoes?page=1";
+    });
+
   load();
 });
