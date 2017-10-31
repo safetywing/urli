@@ -88,6 +88,13 @@ location.toString();
 -> "/user/HungryHippo?comments=100"
 ```
 
+#### Search queries default values
+```javascript
+const loc = new URL({ href: "http://localhost:3000/login?reset" });
+loc.search.reset -> 1
+loc.toString()   -> "http://localhost:3000/login?reset=1"
+```
+
 #### Methods
 ```method.js
 set(props: Object)

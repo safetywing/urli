@@ -478,5 +478,16 @@ tinytest(function (test, load) {
       return true;
     });
 
+  test("http://localhost:3000/login?reset (toString)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/login?reset"
+      });
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3000/login?reset=1";
+    });
+
   load();
 });
