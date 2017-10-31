@@ -137,14 +137,14 @@ class URL {
   }
 
   set(location) {
+    const x = {};
+
     const keys = [
       "pathname",
       "href",
       "origin",
       "search"
     ];
-
-    const x = {};
 
     for (var i = 0, n = keys.length; i < n; i++) {
       if (location[keys[i]]) {
@@ -153,11 +153,18 @@ class URL {
       }
     }
 
-    this.location.params = this.getUrlPathname(this.getLocationString(x));
-    this.origin          = new Origin(this.location);
-    this.search          = new Search(this.location);
-    this.params          = new Parameters(this.location);
-    this.isMatch         = this.params.__isMatch;
+    if (x.pathname || x.href) {
+      this.location.params = (
+        this.getUrlPathname(
+          this.getLocationString(x)
+        )
+      );
+    }
+
+    this.origin  = new Origin(this.location);
+    this.search  = new Search(this.location);
+    this.params  = new Parameters(this.location);
+    this.isMatch = this.params.__isMatch;
   }
 
   toString() {

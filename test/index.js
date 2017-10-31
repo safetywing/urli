@@ -652,7 +652,7 @@ tinytest(function (test, load) {
       };
     });
 
-  test("http://localhost:3000/?string (set)")
+  test("http://localhost:3000/?string (set pathname)")
     .this(function () {
       let url = new URL({
         href: "http://localhost:3000/?string"
@@ -666,6 +666,22 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return "http://localhost:3000/path/name?string=1";
+    });
+
+  test("http://localhost:3000/?string (set search)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/login"
+      });
+
+      url.set({
+        search : "?search=1&cat=fluffy&dog=sam"
+      });
+
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3000/login?search=1&cat=fluffy&dog=sam";
     });
 
   load();
