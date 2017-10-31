@@ -684,5 +684,17 @@ tinytest(function (test, load) {
       return "http://localhost:3000/login?search=1&cat=fluffy&dog=sam";
     });
 
+  test("http://localhost:3000/startswith/ (set search)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/startswith/"
+      });
+
+      return url.params.startsWith("startswith");
+    })
+    .isDeepEqual(function () {
+      return true;
+    });
+
   load();
 });

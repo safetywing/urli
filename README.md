@@ -104,6 +104,19 @@ location.params
 -> "/user/HungryHippo"
 ```
 
+#### Methods
+
+##### `startsWith`
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/startswith/"
+});
+
+return url.params.startsWith("startswith");
+-> true
+```
+
 #### Changing values of search
 ```javascript
 location.search.comments = "100";

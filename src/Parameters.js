@@ -31,6 +31,15 @@ function Parameters(location) {
   }
 }
 
+Parameters.prototype.startsWith = function (value) {
+  const sanitize = (
+    value[0] === "/"
+      ? value.substring(1)
+      : value
+  );
+  return this.__path[0] === sanitize;
+};
+
 Parameters.prototype.toString = function () {
   const length = this.__params.length;
   const query  = new Array(length);
