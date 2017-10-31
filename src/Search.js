@@ -74,6 +74,7 @@ Search.prototype.fromString = function (search) {
   for (let i = 0, n = list.length; i < n; i++) {
     list[i]    = list[i].split("=").map(decodeURI);
     t.isArray  = list[i][0].slice(-2) === "[]";
+    list[i][1] = list[i][1] || true;
 
     if (t.isArray) {
       list[i][0]       = list[i][0].slice(0, -2);

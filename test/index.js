@@ -469,5 +469,14 @@ tinytest(function (test, load) {
       return "/user/98374jf/comments?page=1";
     });
 
+  test("http://localhost:3000/login?reset")
+    .this(function () {
+      let url = new URL({ href: "http://localhost:3000/login?reset" });
+      return url.search.reset;
+    })
+    .isDeepEqual(function () {
+      return true;
+    });
+
   load();
 });
