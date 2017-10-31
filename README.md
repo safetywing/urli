@@ -12,6 +12,29 @@ location.setSchema(String)
 -> URL
 ```
 
+#### Methods
+
+##### `URL.prototype.set`
+
+```javascript
+url.set({
+  pathname? : String,
+  href?     : String,
+  origin?   : String,
+  search?   : String
+});
+```
+
+```javascript
+let url = new URL({ href: "http://localhost:3000/?string" });
+url.set({
+  pathname : "/path/name"
+});
+url.toString();
+-> "http://localhost:3000/path/name?string=1"
+```
+
+
 #### Params
 
 Any path which is prefixed with `:` will be converted to a key value pair which is accessible at `location.params`
@@ -22,8 +45,8 @@ const location = new URL(
   "/user/SeanJM"
 );
 location.params.userID -> "SeanJM"
-```
 
+```
 ```javascript
 const location = new URL("/user/:userID", {
   pathname: "/user/SeanJM",

@@ -18,7 +18,7 @@ class URL {
           : b
     );
 
-    const location = {
+    this.location = {
       origin       : this.getUrlOrigin(params, loc),
       href         : this.getUrlHref(params, loc),
       pathname     : this.getUrlPathname(params, loc),
@@ -27,10 +27,10 @@ class URL {
       searchSchema : this.getUrlSearch(params)
     };
 
-    this.origin   = new Origin(location);
-    this.search   = new Search(location);
-    this.params   = new Parameters(location);
-    this.isMatch  = this.params.__isMatch;
+    this.origin  = new Origin(this.location);
+    this.search  = new Search(this.location);
+    this.params  = new Parameters(this.location);
+    this.isMatch = this.params.__isMatch;
   }
 
   getLocationString(loc) {
@@ -39,7 +39,7 @@ class URL {
 
   getUrlHref(params, loc) {
     if (typeof loc === "object") {
-      return loc.href;
+      return loc.href || loc.origin;
     } else if (params) {
       return params;
     }
@@ -67,7 +67,7 @@ class URL {
   }
 
   getUrlOrigin(params, loc) {
-    let origin = false;
+    let origin = undefined;
     let end;
 
     if (typeof loc === "object") {
@@ -134,6 +134,30 @@ class URL {
     }
 
     return x;
+  }
+
+  set(location) {
+    const keys = [
+      "pathname",
+      "href",
+      "origin",
+      "search"
+    ];
+
+    const x = {};
+
+    for (var i = 0, n = keys.length; i < n; i++) {
+      if (location[keys[i]]) {
+        x[keys[i]]             = location[keys[i]];
+        this.location[keys[i]] = location[keys[i]];
+      }
+    }
+
+    this.location.params = this.getUrlPathname(this.getLocationString(x));
+    this.origin          = new Origin(this.location);
+    this.search          = new Search(this.location);
+    this.params          = new Parameters(this.location);
+    this.isMatch         = this.params.__isMatch;
   }
 
   toString() {
