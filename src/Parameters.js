@@ -1,9 +1,21 @@
 const set   = require("./set");
 const clear = require("./clear");
 
+function pathnameToArray(pathname) {
+  if (pathname[0] === "/") {
+    pathname = pathname.substring(1);
+  }
+
+  if (pathname.slice(-1) === "/") {
+    pathname = pathname.slice(0, -1);
+  }
+
+  return pathname.length ? pathname.split("/") : [];
+}
+
 function Parameters(location) {
-  this.__path    = location.pathname.split("/").filter(a => a.length);
-  this.__params  = location.params.split("/").filter(a => a.length);
+  this.__path    = pathnameToArray(location.pathname);
+  this.__params  = pathnameToArray(location.params);
   this.__isMatch = this.__params.length === 0 || this.__path.length === this.__params.length;
 
   if (this.__params.length === 1 && this.__params[0] === "*") {
@@ -32,7 +44,7 @@ function Parameters(location) {
 }
 
 Parameters.prototype.startsWith = function (value) {
-  const each = (value[0] === "/" ? value.substring(1) : value).split("/");
+  const each = pathnameToArray(value);
   let startsWith = true;
   for (var i = 0, n = each.length; i < n; i++) {
     if (this.__path[i] !== each[i]) {
@@ -43,7 +55,7 @@ Parameters.prototype.startsWith = function (value) {
 };
 
 Parameters.prototype.is = function (value) {
-  const each = (value[0] === "/" ? value.substring(1) : value).split("/");
+  const each = pathnameToArray(value);
   let is     = each.length === this.__path.length;
   return is ? this.startsWith(value) : false;
 };
