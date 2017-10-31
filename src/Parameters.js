@@ -32,12 +32,14 @@ function Parameters(location) {
 }
 
 Parameters.prototype.startsWith = function (value) {
-  const sanitize = (
-    value[0] === "/"
-      ? value.substring(1)
-      : value
-  );
-  return this.__path[0] === sanitize;
+  const each = (value[0] === "/" ? value.substring(1) : value).split("/");
+  let startsWith = true;
+  for (var i = 0, n = each.length; i < n; i++) {
+    if (this.__path[i] !== each[i]) {
+      startsWith = false;
+    }
+  }
+  return startsWith;
 };
 
 Parameters.prototype.toString = function () {
