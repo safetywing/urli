@@ -201,7 +201,7 @@ Search.prototype.toString = function () {
 
 Search.prototype.set = function (opt) {
   for (var k in opt) {
-    if (opt.hasOwnProperty[k]) {
+    if (opt.hasOwnProperty(k)) {
       this[typeof this[k] === "function" ? "_" + k : k] = opt[k];
     }
   }
