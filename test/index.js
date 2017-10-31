@@ -713,12 +713,13 @@ tinytest(function (test, load) {
   test("http://localhost:3000/starts/with/that (is)")
     .this(function () {
       let url = new URL({
-        href: "http://localhost:3000/starts/with/that"
+        href: "http://localhost:3000/starts/with/"
       });
       return (
-        url.params.is("starts/with/that") &&
-        url.params.is("/starts/with/that") &&
-        !url.params.is("starts/without/that")
+        url.params.is("starts/with/") &&
+        url.params.is("/starts/with/") &&
+        url.params.is("starts/with") &&
+        !url.params.is("starts/with/that")
       );
     })
     .isDeepEqual(function () {

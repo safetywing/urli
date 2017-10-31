@@ -44,7 +44,7 @@ function Parameters(location) {
 }
 
 Parameters.prototype.startsWith = function (value) {
-  const each = pathnameToArray(value);
+  const each     = pathnameToArray(value);
   let startsWith = true;
   for (var i = 0, n = each.length; i < n; i++) {
     if (this.__path[i] !== each[i]) {
@@ -55,9 +55,8 @@ Parameters.prototype.startsWith = function (value) {
 };
 
 Parameters.prototype.is = function (value) {
-  const each = pathnameToArray(value);
-  let is     = each.length === this.__path.length;
-  return is ? this.startsWith(value) : false;
+  const each = "/" + pathnameToArray(value).join("/");
+  return this.toString === each;
 };
 
 Parameters.prototype.toString = function () {
