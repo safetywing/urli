@@ -110,10 +110,21 @@ location.params
 
 ```javascript
 let url = new URL({
-  href: "http://localhost:3000/startswith/"
+  href: "http://localhost:3000/starts/with/this"
 });
 
-return url.params.startsWith("startswith");
+return url.params.startsWith("starts/with");
+-> true
+```
+
+##### `is`
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/starts/with/this"
+});
+
+return url.params.is("starts/with/this");
 -> true
 ```
 

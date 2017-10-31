@@ -42,6 +42,12 @@ Parameters.prototype.startsWith = function (value) {
   return startsWith;
 };
 
+Parameters.prototype.is = function (value) {
+  const each = (value[0] === "/" ? value.substring(1) : value).split("/");
+  let is     = each.length === this.__path.length;
+  return is ? this.startsWith(value) : false;
+};
+
 Parameters.prototype.toString = function () {
   const length = this.__params.length;
   const query  = new Array(length);

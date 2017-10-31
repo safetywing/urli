@@ -710,5 +710,20 @@ tinytest(function (test, load) {
       return true;
     });
 
+  test("http://localhost:3000/starts/with/that (is)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/starts/with/that"
+      });
+      return (
+        url.params.is("starts/with/that") &&
+        url.params.is("/starts/with/that") &&
+        !url.params.is("starts/without/that")
+      );
+    })
+    .isDeepEqual(function () {
+      return true;
+    });
+
   load();
 });
