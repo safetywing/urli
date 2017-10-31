@@ -44,19 +44,11 @@ function Parameters(location) {
 }
 
 Parameters.prototype.startsWith = function (value) {
-  const each     = pathnameToArray(value);
-  let startsWith = true;
-  for (var i = 0, n = each.length; i < n; i++) {
-    if (this.__path[i] !== each[i]) {
-      startsWith = false;
-    }
-  }
-  return startsWith;
+  return this.toString().indexOf("/" + pathnameToArray(value).join("/")) === 0;
 };
 
 Parameters.prototype.is = function (value) {
-  const each = "/" + pathnameToArray(value).join("/");
-  return this.toString === each;
+  return this.toString() === "/" + pathnameToArray(value).join("/");
 };
 
 Parameters.prototype.toString = function () {
