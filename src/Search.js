@@ -199,7 +199,24 @@ Search.prototype.toString = function () {
     : "";
 };
 
-Search.prototype.set = set;
+Search.prototype.set = function (opt) {
+  for (var k in opt) {
+    this[typeof this[k] === "function" ? "_" + k : k] = opt[k];
+  }
+  return this;
+};
+
+Search.prototype.get = function (key) {
+  let props = {};
+  if (typeof key === "object") {
+    for (var i = 0, n = key.length; i < n; i++) {
+      props[key[i]] = this.get(key[i]);
+    }
+    return props;
+  }
+  return this[typeof this[key] === "function" ? "_" + key : key];
+};
+
 Search.prototype.clear = clear;
 
 module.exports = Search;

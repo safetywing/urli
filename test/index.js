@@ -475,7 +475,7 @@ tinytest(function (test, load) {
       return url.search.reset;
     })
     .isDeepEqual(function () {
-      return true;
+      return 1;
     });
 
   test("http://localhost:3000/login?reset (toString)")
@@ -487,6 +487,58 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return "http://localhost:3000/login?reset=1";
+    });
+
+  test("http://localhost:3000/?string (set)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/?string"
+      });
+
+      url.search.set({
+        string: "this will be an encoded string"
+      });
+
+      console.log(encodeURI("this will be an encoded string"));
+
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3000/?string=this%20will%20be%20an%20encoded%20string";
+    });
+
+  test("http://localhost:3000/?string (get)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/?string"
+      });
+
+      url.search.string = "this will be an encoded string";
+
+      return url.search.get("string");
+    })
+    .isDeepEqual(function () {
+      return "this will be an encoded string";
+    });
+
+  test("http://localhost:3000/?string (get array)")
+    .this(function () {
+      let url = new URL({
+        href: "http://localhost:3000/?string"
+      });
+
+      url.search.set({
+        string: "this will be an encoded string",
+        number: 2098
+      });
+
+      return url.search.get([ "string", "number" ]);
+    })
+    .isDeepEqual(function () {
+      return {
+        string: "this will be an encoded string",
+        number: 2098
+      };
     });
 
   load();

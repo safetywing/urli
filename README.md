@@ -96,23 +96,33 @@ loc.toString()   -> "http://localhost:3000/login?reset=1"
 ```
 
 #### Methods
-```method.js
+```javascript
 set(props: Object)
 ```
 
-```method.js
+```javascript
+get(key)
+-> value
+```
+
+```javascript
+get(Array[key])
+-> { key: value }
+```
+
+```javascript
 copy()
 ```
 
-```method.js
+```javascript
 params.toString()
 ```
 
-```method.js
+```javascript
 search.toString()
 ```
 
-```method.js
+```javascript
 search.fromString(String)
 ```
 
