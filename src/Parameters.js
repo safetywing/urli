@@ -44,7 +44,10 @@ function Parameters(location) {
 }
 
 Parameters.prototype.startsWith = function (value) {
-  return this.toString().indexOf("/" + pathnameToArray(value).join("/")) === 0;
+  const str  = this.toString();
+  const path = "/" + pathnameToArray(value).join("/");
+  const n    = path.length - 1;
+  return str.indexOf(path) === 0 && str[n] === "/" || !str[n];
 };
 
 Parameters.prototype.is = function (value) {

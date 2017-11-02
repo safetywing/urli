@@ -703,6 +703,7 @@ tinytest(function (test, load) {
       return (
         url.params.startsWith("startswith/reset") &&
         url.params.startsWith("/startswith/reset") &&
+        !url.params.startsWith("/startswith/res") &&
         !url.params.startsWith("startswith/test")
       );
     })
