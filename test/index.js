@@ -1,6 +1,8 @@
 const tinytest = require("tiny-test");
 const URL      = require("../index.js");
 
+console.log(URL);
+
 tinytest(function (test, load) {
   test("http://www.google.com/")
     .this(function () {

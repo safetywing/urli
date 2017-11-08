@@ -4,6 +4,7 @@
   "description": "An interface for manipulating and querying a URL",
   "main": "index.js",
   "scripts": {
+    "start": "webpack --watch",
     "test": "node test/"
   },
   "keywords": [
@@ -15,8 +16,14 @@
   "author": "Sean J. MacIsaac (seanjmacisaac@gmail.com)",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.9.0",
     "eslint-plugin-dependencies": "^2.4.0",
-    "tiny-test": "^0.9.4"
+    "tiny-test": "^0.9.4",
+    "uglifyjs-webpack-plugin": "^1.0.1",
+    "webpack": "^3.8.1"
   }
 }
