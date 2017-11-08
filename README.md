@@ -1,6 +1,9 @@
 ## URLi (URL Interface)
 A constructor for manipulating and querying URLs
 
+## File size
+8.73 kB
+
 #### Usage
 ```js
 import URL from "urli";
