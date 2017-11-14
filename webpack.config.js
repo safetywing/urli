@@ -1,19 +1,22 @@
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 module.exports = {
   entry : "./src/index.js",
   target : "node",
+
   output : {
-    filename: "index.js",
-    libraryTarget: "commonjs2"
+    filename      : "index.js",
+    libraryTarget : "commonjs2"
   },
+
   module: {
     rules: [{
       test : /\.js$/,
       use  : {
-        loader: "babel-loader",
+        loader : "babel-loader",
         options: {
-          presets: [
+          presets : [
             "env"
           ],
           plugins : [
@@ -23,7 +26,8 @@ module.exports = {
       }
     }]
   },
-  plugins: [
-    new UglifyJSPlugin()
-  ],
+
+  plugins: IS_PRODUCTION
+    ? [ new UglifyJSPlugin() ]
+    : undefined,
 };
