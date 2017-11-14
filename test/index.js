@@ -729,5 +729,16 @@ tinytest(function (test, load) {
       return true;
     });
 
+  test("http://localhost:3001/ (startsWith)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/",
+      });
+      return url.params.startsWith("login");
+    })
+    .isDeepEqual(function () {
+      return false;
+    });
+
   load();
 });
