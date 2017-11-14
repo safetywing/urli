@@ -47,7 +47,7 @@ Parameters.prototype.startsWith = function (value) {
   const str  = this.toString();
   const path = "/" + pathnameToArray(value).join("/");
   const n    = path.length - 1;
-  return str.indexOf(path) === 0 && str[n] === "/" && !str[n];
+  return str.indexOf(path) === 0 && (str[n] === "/" || !str[n]);
 };
 
 Parameters.prototype.is = function (value) {
