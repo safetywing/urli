@@ -153,6 +153,28 @@ return url.params.name;
 -> "login"
 ```
 
+##### `unshift`
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/starts/with/this"
+});
+
+url.params.unshift("login");
+return url.toString();
+-> "http://localhost:3000/login/starts/with/this"
+```
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/starts/with/this"
+});
+
+url.params.unshift({ name: "login" });
+return url.params.name;
+-> "login"
+```
+
 #### Changing values of search
 ```javascript
 location.search.comments = "100";
