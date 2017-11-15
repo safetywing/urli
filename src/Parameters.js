@@ -13,6 +13,14 @@ function pathnameToArray(pathname) {
   return pathname.length ? pathname.split("/") : [];
 }
 
+function maybeError(self, key) {
+  if (typeof self[key] === "function") {
+    throw new Error(
+      "Invalid parameter name: \"" + key + "\", this is a reserved word."
+    );
+  }
+}
+
 function Parameters(location) {
   this.__path    = pathnameToArray(location.pathname);
   this.__params  = pathnameToArray(location.params);
@@ -33,11 +41,7 @@ function Parameters(location) {
     }
 
     if (this.__params[i][0] === ":") {
-      if (typeof this[this.__params[i].slice(1)] === "function") {
-        throw new Error(
-          "Invalid parameter name: \"" + this.__params[i].slice(1) + "\", this is a reserved word."
-        );
-      }
+      maybeError(this, this.__params[i].slice(1));
       this[this.__params[i].slice(1)] = this.__path[i];
     }
   }
@@ -46,16 +50,26 @@ function Parameters(location) {
 Parameters.prototype.push = function (value) {
   if (typeof value === "object") {
     for (var k in value) {
-      if (typeof this[k] === "function") {
-        throw new Error(
-          "Invalid parameter name: \"" + k + "\", this is a reserved word."
-        );
-      }
+      maybeError(this, k);
       this[k] = value[k];
       this.__params.push(value[k]);
     }
   } else {
     this.__params.push(value);
+  }
+
+  return this;
+};
+
+Parameters.prototype.unshift = function (value) {
+  if (typeof value === "object") {
+    for (var k in value) {
+      maybeError(this, k);
+      this[k] = value[k];
+      this.__params.unshift(value[k]);
+    }
+  } else {
+    this.__params.unshift(value);
   }
 
   return this;

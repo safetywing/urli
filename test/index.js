@@ -766,5 +766,31 @@ tinytest(function (test, load) {
       return [ "http://localhost:3001/login", "login" ];
     });
 
+  test("http://localhost:3001/ (unshift)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/",
+      });
+      url.params.unshift("login");
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3001/login";
+    });
+
+  test("http://localhost:3001/ (unshift object)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/",
+      });
+
+      url.params.unshift({ name: "login" });
+
+      return [ url.toString(), url.params.name ];
+    })
+    .isDeepEqual(function () {
+      return [ "http://localhost:3001/login", "login" ];
+    });
+
   load();
 });
