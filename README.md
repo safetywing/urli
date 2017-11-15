@@ -131,6 +131,28 @@ return url.params.is("starts/with/this");
 -> true
 ```
 
+##### `push`
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/starts/with/this"
+});
+
+url.params.push("login");
+return url.toString();
+-> "http://localhost:3000/starts/with/this/login"
+```
+
+```javascript
+let url = new URL({
+  href: "http://localhost:3000/starts/with/this"
+});
+
+url.params.push({ name: "login" });
+return url.params.name;
+-> "login"
+```
+
 #### Changing values of search
 ```javascript
 location.search.comments = "100";
