@@ -740,5 +740,31 @@ tinytest(function (test, load) {
       return false;
     });
 
+  test("http://localhost:3001/ (push)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/",
+      });
+      url.params.push("login");
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3001/login";
+    });
+
+  test("http://localhost:3001/ (push object)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/",
+      });
+
+      url.params.push({ name: "login" });
+
+      return [ url.toString(), url.params.name ];
+    })
+    .isDeepEqual(function () {
+      return [ "http://localhost:3001/login", "login" ];
+    });
+
   load();
 });

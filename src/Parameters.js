@@ -43,6 +43,24 @@ function Parameters(location) {
   }
 }
 
+Parameters.prototype.push = function (value) {
+  if (typeof value === "object") {
+    for (var k in value) {
+      if (typeof this[k] === "function") {
+        throw new Error(
+          "Invalid parameter name: \"" + k + "\", this is a reserved word."
+        );
+      }
+      this[k] = value[k];
+      this.__params.push(value[k]);
+    }
+  } else {
+    this.__params.push(value);
+  }
+
+  return this;
+};
+
 Parameters.prototype.startsWith = function (value) {
   const str  = this.toString();
   const path = "/" + pathnameToArray(value).join("/");

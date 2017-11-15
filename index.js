@@ -1,1 +1,615 @@
-module.exports=function(t){function e(r){if(i[r])return i[r].exports;var s=i[r]={i:r,l:!1,exports:{}};return t[r].call(s.exports,s,s.exports,e),s.l=!0,s.exports}var i={};return e.m=t,e.c=i,e.d=function(t,i,r){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:r})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=2)}([function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=function(t){for(var e in t)this[e]=t[e];return this}},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=function(){for(var t in this)this.hasOwnProperty(t)&&(this[t]=void 0);return this}},function(t,e,i){"use strict";var r=function(t){return t&&t.__esModule?t:{default:t}}(i(3));t.exports=r.default},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},s=function(){function t(t,e){for(var i=0;i<e.length;i++){var r=e[i];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,i,r){return i&&t(e.prototype,i),r&&t(e,r),e}}(),n=i(4),a=i(5),o=i(6),h=function(){function t(e,i){!function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,t);var s="string"==typeof e?e:void 0,h="object"===(void 0===e?"undefined":r(e))?e:"string"==typeof i?{href:i}:i;this.location={origin:this.getUrlOrigin(s,h),href:this.getUrlHref(s,h),pathname:this.getUrlPathname(s,h),params:this.getUrlPathname(s||this.getLocationString(h)),search:this.getUrlSearch(s,h),searchSchema:this.getUrlSearch(s)},this.origin=new n(this.location),this.search=new a(this.location),this.params=new o(this.location),this.isMatch=this.params.__isMatch}return s(t,[{key:"getLocationString",value:function(t){return t&&(t.href||t.pathname||t.origin)}},{key:"getUrlHref",value:function(t,e){return"object"===(void 0===e?"undefined":r(e))?e.href||e.origin:t||void 0}},{key:"getUrlPathname",value:function(t,e){var i=t?t.split("?")[0]:"",s=0,n=i.length;return"object"===(void 0===e?"undefined":r(e))?this.getUrlPathname(this.getLocationString(e)):(i&&(0===i.indexOf("http://")?s+=7:0===i.indexOf("https://")&&(s+=8),s=i.indexOf("/",s)),-1===s?"/":i.substring(s,n))}},{key:"getUrlOrigin",value:function(t,e){var i=void 0,s=void 0;return"object"===(void 0===e?"undefined":r(e))?this.getUrlOrigin(e.origin||e.href||e.pathname):(t&&0===t.indexOf("http")&&(s=(t=t.split("?")[0]).indexOf("/",t.indexOf("//")+2),i=t.substring(0,s>-1?s:t.length)),i)}},{key:"getUrlSearch",value:function(t,e){return"object"===(void 0===e?"undefined":r(e))?e.search?e.search:this.getUrlSearch(e.href):t&&t.split("?")[1]?"?"+t.split("?")[1]:""}},{key:"setSchema",value:function(e){return Object.assign(this,new t(e,{pathname:this.__pathname,search:this.__search})),this}},{key:"locationFromString",value:function(t){var e=t.split("?");return{pathname:e[0],search:e[1]||""}}},{key:"toObject",value:function(e){return new t(this.__params,this.locationFromString(e))}},{key:"copy",value:function(){var e=new t(this.__params,{pathname:this.__pathname,search:this.__search,origin:this.__origin});for(var i in this.search)this.search.hasOwnProperty(i)&&(e.search[i]=this.search[i]);for(i in this.params)this.params.hasOwnProperty(i)&&(e.params[i]=this.params[i]);return e}},{key:"set",value:function(t){for(var e={},i=["pathname","href","origin","search"],r=0,s=i.length;r<s;r++)t[i[r]]&&(e[i[r]]=t[i[r]],this.location[i[r]]=t[i[r]]);(e.pathname||e.href)&&(this.location.params=this.getUrlPathname(this.getLocationString(e))),this.origin=new n(this.location),this.search=new a(this.location),this.params=new o(this.location),this.isMatch=this.params.__isMatch}},{key:"toString",value:function(){return this.origin.toString()+this.params.toString()+this.search.toString()}}]),t}();e.default=h},function(t,e,i){"use strict";function r(t){this.value=t.origin}r.prototype.toString=function(){return this.value?this.value:""},t.exports=r},function(t,e,i){"use strict";function r(t){var e=Number(t);return isNaN(e)?t:e}function s(t){this.getSchema(t.searchSchema),this.fromString(t.search)}var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},a=(i(0),i(1));s.prototype.getSchema=function(t){var e=("?"===t[0]?t.slice(1):t).split("&"),i=!1,r=void 0;this.__schema={},this.__schemaKeys=[];for(var s=0,n=e.length;s<n;s++)e[s].length&&(i="[]"===(r=e[s].split("="))[0].slice(-2),r[0]=i?r[0].slice(0,-2):r[0],this.__schemaKeys.push(r[0]),this.__schema[r[0]]=function(t,e){var i={delimiter:t&&t.indexOf(",")>-1?",":"+",type:e,map:[]};return t&&t.split(i.delimiter).forEach(function(t){":"===t[0]?i.map.push(t.substring(1)):i.map.push({constant:t})}),i}(r[1],i?"array":"object"))},s.prototype.fromString=function(t){for(var e=t&&t.length?t.replace(/^\?/,"").split("&"):[],i={},s=0,n=e.length;s<n;s++)if(e[s]=e[s].split("=").map(decodeURI),i.isArray="[]"===e[s][0].slice(-2),e[s][1]=e[s][1]||1,i.isArray&&(e[s][0]=e[s][0].slice(0,-2),this[e[s][0]]=this[e[s][0]]||[]),i.schema=this.__schema[e[s][0]],i.isSchema=i.schema&&i.schema.map.length,i.isSchema){i.split=e[s][1].split(i.schema.delimiter),i.value={};for(var a=0,o=i.split.length;a<o;a++)i.key=i.schema.map[a],i.key?i.key.constant?i.value[i.key.constant]=i.key.constant:i.value[i.key]=r(i.split[a]):i.value.__invalid=!0;"array"===i.schema.type?this[e[s][0]].push(i.value):this[e[s][0]]=i.value}else i.isArray?this[e[s][0]].push(r(e[s][1])):this[e[s][0]]=r(e[s][1]);for(var h=0,c=this.__schemaKeys.length;h<c;h++)void 0===this[this.__schemaKeys[h]]&&("array"===this.__schema[this.__schemaKeys[h]].type?this[this.__schemaKeys[h]]=[]:"object"===this.__schema[this.__schemaKeys[h]].type&&(this[this.__schemaKeys[h]]={}))},s.prototype.toString=function(){var t=[];for(var e in this)if(this.hasOwnProperty(e)&&"__"!==e.substring(0,2))if(this.__schema[e]&&this.__schema[e].map.length)"array"===this.__schema[e].type?t.push(function(t,e,i){for(var r=[],s=0,n=e.length;s<n;s++){r.push([encodeURI(t)+"[]="]);for(var a in e[s])r[s].push(e[s][a]);r[s]=r[s][0]+encodeURI(r[s].slice(1).join(i.delimiter))}return r.join("&")}(e,this[e],this.__schema[e])):"object"===this.__schema[e].type&&t.push(function(t,e,i){var r=[t+"=",[]];e=e||{};for(var s=0,n=i.map.length;s<n;s++)i.map[s].constant?r[1].push(i.map[s].constant):e[i.map[s]]&&r[1].push(e[i.map[s]]);return encodeURI(r[0]+r[1].join("+"))}(e,this[e],this.__schema[e]));else if("number"==typeof this[e]||"string"==typeof this[e]&&this[e].length)t.push(encodeURI(e+"="+this[e]));else if(Array.isArray(this[e]))for(var i=0,r=this[e].length;i<r;i++)t.push(encodeURI(e)+"[]="+encodeURI(this[e][i]));return t.length?"?"+t.join("&"):""},s.prototype.set=function(t){for(var e in t)t.hasOwnProperty(e)&&(this["function"==typeof this[e]?"_"+e:e]=t[e]);return this},s.prototype.get=function(t){var e={};if("object"===(void 0===t?"undefined":n(t))){for(var i=0,r=t.length;i<r;i++)e[t[i]]=this.get(t[i]);return e}return this["function"==typeof this[t]?"_"+t:t]},s.prototype.clear=a,t.exports=s},function(t,e,i){"use strict";function r(t){return"/"===t[0]&&(t=t.substring(1)),"/"===t.slice(-1)&&(t=t.slice(0,-1)),t.length?t.split("/"):[]}function s(t){this.__path=r(t.pathname),this.__params=r(t.params),this.__isMatch=0===this.__params.length||this.__path.length===this.__params.length,1===this.__params.length&&"*"===this.__params[0]&&(this.__params=this.__path.slice());for(var e=0,i=this.__params.length;e<i;e++)if((!this.__path[e]||":"!==this.__params[e][0]&&"*"!==this.__params[e]&&this.__params[e]!==this.__path[e])&&(this.__isMatch=!1),":"===this.__params[e][0]){if("function"==typeof this[this.__params[e].slice(1)])throw new Error('Invalid parameter name: "'+this.__params[e].slice(1)+'", this is a reserved word.');this[this.__params[e].slice(1)]=this.__path[e]}}var n=i(0),a=i(1);s.prototype.startsWith=function(t){var e=this.toString(),i="/"+r(t).join("/"),s=i.length-1;return 0===e.indexOf(i)&&("/"===e[s]||!e[s])},s.prototype.is=function(t){return this.toString()==="/"+r(t).join("/")},s.prototype.toString=function(){for(var t=this.__params.length,e=new Array(t),i=0;i<t;i++)e[i]=":"===this.__params[i][0]?this[this.__params[i].slice(1)]:this.__params[i];return"/"+e.join("/")},s.prototype.set=n,s.prototype.clear=a,t.exports=s}]);
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = set;
+function set(props) {
+  for (var k in props) {
+    this[k] = props[k];
+  }
+  return this;
+}
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = clear;
+function clear() {
+  for (var k in this) {
+    if (this.hasOwnProperty(k)) {
+      this[k] = undefined;
+    }
+  }
+  return this;
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _URL = __webpack_require__(3);
+
+var _URL2 = _interopRequireDefault(_URL);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = _URL2.default;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Origin = __webpack_require__(4);
+var Search = __webpack_require__(5);
+var Parameters = __webpack_require__(6);
+
+var URL = function () {
+  function URL(a, b) {
+    _classCallCheck(this, URL);
+
+    var params = typeof a === "string" ? a : undefined;
+
+    var loc = (typeof a === "undefined" ? "undefined" : _typeof(a)) === "object" ? a : typeof b === "string" ? { href: b } : b;
+
+    this.location = {
+      origin: this.getUrlOrigin(params, loc),
+      href: this.getUrlHref(params, loc),
+      pathname: this.getUrlPathname(params, loc),
+      params: this.getUrlPathname(params || this.getLocationString(loc)),
+      search: this.getUrlSearch(params, loc),
+      searchSchema: this.getUrlSearch(params)
+    };
+
+    this.origin = new Origin(this.location);
+    this.search = new Search(this.location);
+    this.params = new Parameters(this.location);
+    this.isMatch = this.params.__isMatch;
+  }
+
+  _createClass(URL, [{
+    key: "getLocationString",
+    value: function getLocationString(loc) {
+      return loc && (loc.href || loc.pathname || loc.origin);
+    }
+  }, {
+    key: "getUrlHref",
+    value: function getUrlHref(params, loc) {
+      if ((typeof loc === "undefined" ? "undefined" : _typeof(loc)) === "object") {
+        return loc.href || loc.origin;
+      } else if (params) {
+        return params;
+      }
+    }
+  }, {
+    key: "getUrlPathname",
+    value: function getUrlPathname(params, loc) {
+      var string = params ? params.split("?")[0] : "";
+      var start = 0;
+      var end = string.length;
+
+      if ((typeof loc === "undefined" ? "undefined" : _typeof(loc)) === "object") {
+        return this.getUrlPathname(this.getLocationString(loc));
+      } else if (string) {
+        if (string.indexOf("http://") === 0) {
+          start += 7;
+        } else if (string.indexOf("https://") === 0) {
+          start += 8;
+        }
+        start = string.indexOf("/", start);
+      }
+
+      return start === -1 ? "/" : string.substring(start, end);
+    }
+  }, {
+    key: "getUrlOrigin",
+    value: function getUrlOrigin(params, loc) {
+      var origin = undefined;
+      var end = void 0;
+
+      if ((typeof loc === "undefined" ? "undefined" : _typeof(loc)) === "object") {
+        return this.getUrlOrigin(loc.origin || loc.href || loc.pathname);
+      } else if (params && params.indexOf("http") === 0) {
+        params = params.split("?")[0];
+        end = params.indexOf("/", params.indexOf("//") + 2);
+        origin = params.substring(0, end > -1 ? end : params.length);
+      }
+
+      return origin;
+    }
+  }, {
+    key: "getUrlSearch",
+    value: function getUrlSearch(params, loc) {
+      if ((typeof loc === "undefined" ? "undefined" : _typeof(loc)) === "object") {
+        return loc.search ? loc.search : this.getUrlSearch(loc.href);
+      } else if (params) {
+        return params.split("?")[1] ? "?" + params.split("?")[1] : "";
+      }
+
+      return "";
+    }
+  }, {
+    key: "setSchema",
+    value: function setSchema(params) {
+      Object.assign(this, new URL(params, {
+        pathname: this.__pathname,
+        search: this.__search
+      }));
+      return this;
+    }
+  }, {
+    key: "locationFromString",
+    value: function locationFromString(string) {
+      var split = string.split("?");
+      return {
+        pathname: split[0],
+        search: split[1] || ""
+      };
+    }
+  }, {
+    key: "toObject",
+    value: function toObject(string) {
+      return new URL(this.__params, this.locationFromString(string));
+    }
+  }, {
+    key: "copy",
+    value: function copy() {
+      var x = new URL(this.__params, {
+        pathname: this.__pathname,
+        search: this.__search,
+        origin: this.__origin
+      });
+
+      for (var k in this.search) {
+        if (this.search.hasOwnProperty(k)) {
+          x.search[k] = this.search[k];
+        }
+      }
+
+      for (k in this.params) {
+        if (this.params.hasOwnProperty(k)) {
+          x.params[k] = this.params[k];
+        }
+      }
+
+      return x;
+    }
+  }, {
+    key: "set",
+    value: function set(location) {
+      var x = {};
+
+      var keys = ["pathname", "href", "origin", "search"];
+
+      for (var i = 0, n = keys.length; i < n; i++) {
+        if (location[keys[i]]) {
+          x[keys[i]] = location[keys[i]];
+          this.location[keys[i]] = location[keys[i]];
+        }
+      }
+
+      if (x.pathname || x.href) {
+        this.location.params = this.getUrlPathname(this.getLocationString(x));
+      }
+
+      this.origin = new Origin(this.location);
+      this.search = new Search(this.location);
+      this.params = new Parameters(this.location);
+      this.isMatch = this.params.__isMatch;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return this.origin.toString() + this.params.toString() + this.search.toString();
+    }
+  }]);
+
+  return URL;
+}();
+
+exports.default = URL;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function Origin(location) {
+  this.value = location.origin;
+}
+
+Origin.prototype.toString = function () {
+  return this.value ? this.value : "";
+};
+
+module.exports = Origin;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var set = __webpack_require__(0);
+var clear = __webpack_require__(1);
+
+function valueByType(str) {
+  var n = Number(str);
+  return isNaN(n) ? str : n;
+}
+
+function Search(location) {
+  this.getSchema(location.searchSchema);
+  this.fromString(location.search);
+}
+
+function getType(element, type) {
+  var res = {
+    delimiter: element && element.indexOf(",") > -1 ? "," : "+",
+    type: type,
+    map: []
+  };
+
+  if (element) {
+    element.split(res.delimiter).forEach(function (name) {
+      if (name[0] === ":") {
+        res.map.push(name.substring(1));
+      } else {
+        res.map.push({ constant: name });
+      }
+    });
+  }
+
+  return res;
+}
+
+Search.prototype.getSchema = function (searchSchema) {
+  var split = (searchSchema[0] === "?" ? searchSchema.slice(1) : searchSchema).split("&");
+
+  var isArray = false;
+  var element = void 0;
+
+  this.__schema = {};
+  this.__schemaKeys = [];
+
+  for (var i = 0, n = split.length; i < n; i++) {
+    if (split[i].length) {
+      element = split[i].split("=");
+      isArray = element[0].slice(-2) === "[]";
+
+      element[0] = isArray ? element[0].slice(0, -2) : element[0];
+
+      this.__schemaKeys.push(element[0]);
+      this.__schema[element[0]] = getType(element[1], isArray ? "array" : "object");
+    }
+  }
+};
+
+Search.prototype.fromString = function (search) {
+  var list = search && search.length ? search.replace(/^\?/, "").split("&") : [];
+
+  var t = {};
+
+  for (var _i = 0, _n = list.length; _i < _n; _i++) {
+    list[_i] = list[_i].split("=").map(decodeURI);
+    t.isArray = list[_i][0].slice(-2) === "[]";
+    list[_i][1] = list[_i][1] || 1;
+
+    if (t.isArray) {
+      list[_i][0] = list[_i][0].slice(0, -2);
+      this[list[_i][0]] = this[list[_i][0]] || [];
+    }
+
+    t.schema = this.__schema[list[_i][0]];
+    t.isSchema = t.schema && t.schema.map.length;
+
+    if (t.isSchema) {
+      t.split = list[_i][1].split(t.schema.delimiter);
+      t.value = {};
+
+      for (var x = 0, y = t.split.length; x < y; x++) {
+        t.key = t.schema.map[x];
+        if (t.key) {
+          if (t.key.constant) {
+            t.value[t.key.constant] = t.key.constant;
+          } else {
+            t.value[t.key] = valueByType(t.split[x]);
+          }
+        } else {
+          t.value.__invalid = true;
+        }
+      }
+
+      if (t.schema.type === "array") {
+        this[list[_i][0]].push(t.value);
+      } else {
+        this[list[_i][0]] = t.value;
+      }
+    } else if (t.isArray) {
+      this[list[_i][0]].push(valueByType(list[_i][1]));
+    } else {
+      this[list[_i][0]] = valueByType(list[_i][1]);
+    }
+  }
+
+  for (var i = 0, n = this.__schemaKeys.length; i < n; i++) {
+    if (typeof this[this.__schemaKeys[i]] === "undefined") {
+      if (this.__schema[this.__schemaKeys[i]].type === "array") {
+        this[this.__schemaKeys[i]] = [];
+      } else if (this.__schema[this.__schemaKeys[i]].type === "object") {
+        this[this.__schemaKeys[i]] = {};
+      }
+    }
+  }
+};
+
+function schemaArrayToString(key, value, schema) {
+  var t = [];
+
+  for (var i = 0, n = value.length; i < n; i++) {
+    t.push([encodeURI(key) + "[]="]);
+
+    for (var x in value[i]) {
+      t[i].push(value[i][x]);
+    }
+
+    t[i] = t[i][0] + encodeURI(t[i].slice(1).join(schema.delimiter));
+  }
+
+  return t.join("&");
+}
+
+function schemaObjectToString(key, value, schema) {
+  var temp = [key + "=", []];
+
+  value = value || {};
+
+  for (var i = 0, n = schema.map.length; i < n; i++) {
+    if (schema.map[i].constant) {
+      temp[1].push(schema.map[i].constant);
+    } else if (value[schema.map[i]]) {
+      temp[1].push(value[schema.map[i]]);
+    }
+  }
+
+  return encodeURI(temp[0] + temp[1].join("+"));
+}
+
+Search.prototype.toString = function () {
+  var search = [];
+
+  for (var k in this) {
+    if (this.hasOwnProperty(k) && k.substring(0, 2) !== "__") {
+      if (this.__schema[k] && this.__schema[k].map.length) {
+        if (this.__schema[k].type === "array") {
+          search.push(schemaArrayToString(k, this[k], this.__schema[k]));
+        } else if (this.__schema[k].type === "object") {
+          search.push(schemaObjectToString(k, this[k], this.__schema[k]));
+        }
+      } else if (typeof this[k] === "number" || typeof this[k] === "string" && this[k].length) {
+        search.push(encodeURI(k + "=" + this[k]));
+      } else if (Array.isArray(this[k])) {
+        for (var i = 0, n = this[k].length; i < n; i++) {
+          search.push(encodeURI(k) + "[]=" + encodeURI(this[k][i]));
+        }
+      }
+    }
+  }
+
+  return search.length ? "?" + search.join("&") : "";
+};
+
+Search.prototype.set = function (opt) {
+  for (var k in opt) {
+    if (opt.hasOwnProperty(k)) {
+      this[typeof this[k] === "function" ? "_" + k : k] = opt[k];
+    }
+  }
+  return this;
+};
+
+Search.prototype.get = function (key) {
+  var props = {};
+  if ((typeof key === "undefined" ? "undefined" : _typeof(key)) === "object") {
+    for (var i = 0, n = key.length; i < n; i++) {
+      props[key[i]] = this.get(key[i]);
+    }
+    return props;
+  }
+  return this[typeof this[key] === "function" ? "_" + key : key];
+};
+
+Search.prototype.clear = clear;
+
+module.exports = Search;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var set = __webpack_require__(0);
+var clear = __webpack_require__(1);
+
+function pathnameToArray(pathname) {
+  if (pathname[0] === "/") {
+    pathname = pathname.substring(1);
+  }
+
+  if (pathname.slice(-1) === "/") {
+    pathname = pathname.slice(0, -1);
+  }
+
+  return pathname.length ? pathname.split("/") : [];
+}
+
+function Parameters(location) {
+  this.__path = pathnameToArray(location.pathname);
+  this.__params = pathnameToArray(location.params);
+  this.__isMatch = this.__params.length === 0 || this.__path.length === this.__params.length;
+
+  if (this.__params.length === 1 && this.__params[0] === "*") {
+    this.__params = this.__path.slice();
+  }
+
+  for (var i = 0, n = this.__params.length; i < n; i++) {
+    if (!this.__path[i] || this.__params[i][0] !== ":" && this.__params[i] !== "*" && this.__params[i] !== this.__path[i]) {
+      this.__isMatch = false;
+    }
+
+    if (this.__params[i][0] === ":") {
+      if (typeof this[this.__params[i].slice(1)] === "function") {
+        throw new Error("Invalid parameter name: \"" + this.__params[i].slice(1) + "\", this is a reserved word.");
+      }
+      this[this.__params[i].slice(1)] = this.__path[i];
+    }
+  }
+}
+
+Parameters.prototype.push = function (value) {
+  if ((typeof value === "undefined" ? "undefined" : _typeof(value)) === "object") {
+    for (var k in value) {
+      if (typeof this[k] === "function") {
+        throw new Error("Invalid parameter name: \"" + k + "\", this is a reserved word.");
+      }
+      this[k] = value[k];
+      this.__params.push(value[k]);
+    }
+  } else {
+    this.__params.push(value);
+  }
+
+  return this;
+};
+
+Parameters.prototype.startsWith = function (value) {
+  var str = this.toString();
+  var path = "/" + pathnameToArray(value).join("/");
+  var n = path.length - 1;
+  return str.indexOf(path) === 0 && (str[n] === "/" || !str[n]);
+};
+
+Parameters.prototype.is = function (value) {
+  return this.toString() === "/" + pathnameToArray(value).join("/");
+};
+
+Parameters.prototype.toString = function () {
+  var length = this.__params.length;
+  var query = new Array(length);
+
+  for (var i = 0; i < length; i++) {
+    query[i] = this.__params[i][0] === ":" ? this[this.__params[i].slice(1)] : this.__params[i];
+  }
+
+  return "/" + query.join("/");
+};
+
+Parameters.prototype.set = set;
+Parameters.prototype.clear = clear;
+module.exports = Parameters;
+
+/***/ })
+/******/ ]);
