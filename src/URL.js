@@ -1,6 +1,7 @@
 const Origin     = require("./Origin");
 const Search     = require("./Search");
 const Parameters = require("./Parameters");
+const Hash       = require("./Hash");
 
 class URL {
   constructor(a, b) {
@@ -22,6 +23,7 @@ class URL {
       origin       : this.getUrlOrigin(params, loc),
       href         : this.getUrlHref(params, loc),
       pathname     : this.getUrlPathname(params, loc),
+      hash         : this.getUrlHash(params, loc),
       params       : this.getUrlPathname(params || this.getLocationString(loc)),
       search       : this.getUrlSearch(params, loc),
       searchSchema : this.getUrlSearch(params)
@@ -30,11 +32,32 @@ class URL {
     this.origin  = new Origin(this.location);
     this.search  = new Search(this.location);
     this.params  = new Parameters(this.location);
+    this.hash    = new Hash(this.location);
     this.isMatch = this.params.__isMatch;
   }
 
   getLocationString(loc) {
     return loc && (loc.href || loc.pathname || loc.origin);
+  }
+
+  getUrlHash(params, loc) {
+    let split = params && params.split("#")[1];
+    let hash  = split ? "#" + split : "";
+    let isLoc = typeof loc === "object";
+
+    if (hash && (isLoc && !loc.hash || !isLoc)) {
+      return hash;
+    }
+
+    if (isLoc) {
+      return loc.hash
+        ? loc.hash
+        : loc.href
+          ? this.getUrlHash(loc.href)
+          : "";
+    }
+
+    return "";
   }
 
   getUrlHref(params, loc) {
@@ -46,7 +69,7 @@ class URL {
   }
 
   getUrlPathname(params, loc) {
-    let string = params ? params.split("?")[0] : "";
+    let string = params ? params.split("?")[0].split("#")[0] : "";
     let start  = 0;
     let end    = string.length;
 
@@ -100,10 +123,10 @@ class URL {
   }
 
   locationFromString(string) {
-    const split = string.split("?");
     return {
-      pathname: split[0],
-      search  : split[1] || ""
+      pathname : this.getUrlPathname(string),
+      hash     : this.getHash(string),
+      search   : this.getUrlSearch(string)
     };
   }
 
@@ -133,6 +156,12 @@ class URL {
       }
     }
 
+    for (k in this.hash) {
+      if (this.hash.hasOwnProperty(k)) {
+        x.hash[k] = this.hash[k];
+      }
+    }
+
     return x;
   }
 
@@ -142,6 +171,7 @@ class URL {
     const keys = [
       "pathname",
       "href",
+      "hash",
       "origin",
       "search"
     ];
@@ -164,6 +194,7 @@ class URL {
     this.origin  = new Origin(this.location);
     this.search  = new Search(this.location);
     this.params  = new Parameters(this.location);
+    this.hash    = new Hash(this.location);
     this.isMatch = this.params.__isMatch;
   }
 
@@ -171,7 +202,8 @@ class URL {
     return (
       this.origin.toString() +
       this.params.toString() +
-      this.search.toString()
+      this.search.toString() +
+      this.hash.toString()
     );
   }
 }

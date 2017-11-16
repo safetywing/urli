@@ -14,11 +14,13 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "",
           searchSchema : ""
         },
+        hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
@@ -29,6 +31,7 @@ tinytest(function (test, load) {
   test("http://www.google.com/ (object.origin)")
     .this(function () {
       let l = new URL({ origin: "http://www.google.com/" });
+      console.log(l);
       return l;
     })
     .isDeepEqual(function () {
@@ -36,11 +39,13 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "",
           searchSchema : ""
         },
+        hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
@@ -58,11 +63,13 @@ tinytest(function (test, load) {
         location : {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "",
           searchSchema : ""
         },
+        hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
         search  : { __schema: {}, __schemaKeys: [] },
         params  : { __path: [], __params: [], __isMatch: true },
@@ -80,11 +87,13 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/cat",
+          hash         : "",
           pathname     : "/cat",
           params       : "/:x",
           search       : "",
           searchSchema : ""
         },
+        hash   : { value: "" },
         origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
@@ -107,11 +116,13 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/cats/dogs",
+          hash         : "",
           pathname     : "/cats/dogs",
           params       : "/:x/:y",
           search       : "",
           searchSchema : ""
         },
+        hash   : { value: "" },
         origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
@@ -135,11 +146,13 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/cats",
+          hash         : "",
           pathname     : "/cats",
           params       : "/:x/:y",
           search       : "",
           searchSchema : ""
         },
+        hash   : { value: "" },
         origin : { value: "http://www.google.com" },
         search : { __schema: {}, __schemaKeys: [] },
         params : {
@@ -163,15 +176,17 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/?search=1",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?search=1",
           searchSchema : ""
         },
 
-        origin: { value: "http://www.google.com" },
+        hash   : { value: "" },
+        origin : { value: "http://www.google.com" },
 
-        search: {
+        search : {
           __schema     : {},
           __schemaKeys : [],
           search       : 1
@@ -197,15 +212,17 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/?search[]=1&search[]=2",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?search[]=1&search[]=2",
           searchSchema : "?search[]"
         },
 
-        origin: {
+        origin : {
           value : "http://www.google.com"
         },
+        hash   : { value: "" },
 
         search: {
           __schema     : {
@@ -239,6 +256,7 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/?search[]=1&search[]=2",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?search[]=1&search[]=2",
@@ -249,6 +267,8 @@ tinytest(function (test, load) {
           value : "http://www.google.com"
         },
 
+        hash   : { value: "" },
+
         search: {
           __schema     : {},
           __schemaKeys : [],
@@ -256,9 +276,9 @@ tinytest(function (test, load) {
         },
 
         params: {
-           __path    : [],
-           __params  : [],
-           __isMatch : true
+          __path    : [],
+          __params  : [],
+          __isMatch : true
         },
 
         isMatch: true
@@ -275,6 +295,7 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/?search=1",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?search=1",
@@ -284,6 +305,8 @@ tinytest(function (test, load) {
         origin: {
           value : "http://www.google.com"
         },
+
+        hash : { value: "" },
 
         search: {
           __schema     : {
@@ -298,9 +321,9 @@ tinytest(function (test, load) {
         },
 
         params: {
-           __path    : [],
-           __params  : [],
-           __isMatch : true
+          __path    : [],
+          __params  : [],
+          __isMatch : true
         },
 
         isMatch: true
@@ -317,6 +340,7 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.google.com",
           href         : "http://www.google.com/?search[]=1&search[]=2",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?search[]=1&search[]=2",
@@ -326,6 +350,8 @@ tinytest(function (test, load) {
         origin: {
           value : "http://www.google.com"
         },
+
+        hash : { value: "" },
 
         search: {
           __schema     : {
@@ -487,6 +513,7 @@ tinytest(function (test, load) {
         location: {
           origin       : "http://www.domain.com",
           href         : "http://www.domain.com/?origin=user+98fjhd+all+1",
+          hash         : "",
           pathname     : "/",
           params       : "/",
           search       : "?origin=user+98fjhd+all+1",
@@ -496,6 +523,8 @@ tinytest(function (test, load) {
         origin: {
           value: "http://www.domain.com"
         },
+
+        hash : { value: "" },
 
         search: {
           __schema     : {
@@ -537,6 +566,7 @@ tinytest(function (test, load) {
         location: {
           origin       : undefined,
           href         : undefined,
+          hash         : "",
           pathname     : "/post/p398dfjkj",
           params       : "/",
           search       : "?origin=user+98fjhd+all+1",
@@ -544,6 +574,8 @@ tinytest(function (test, load) {
         },
 
         origin: { value: undefined },
+
+        hash : { value: "" },
 
         search: {
           __schema     : {
@@ -790,6 +822,74 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return [ "http://localhost:3001/login", "login" ];
+    });
+
+  test("http://localhost:3001/#my-hash (Object)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/#my-hash",
+      });
+      console.log(url);
+      return url;
+    })
+    .isDeepEqual(function () {
+      return {
+        location: {
+          origin       : "http://localhost:3001",
+          href         : "http://localhost:3001/#my-hash",
+          pathname     : "/",
+          hash         : "#my-hash",
+          params       : "/",
+          search       : "",
+          searchSchema : ""
+        },
+
+        origin: {
+          value: "http://localhost:3001"
+        },
+
+        search: {
+          __schema     : {},
+          __schemaKeys : []
+        },
+
+        params: {
+          __path    : [],
+          __params  : [],
+          __isMatch : true
+        },
+
+        hash: {
+          value: "#my-hash"
+        },
+
+        isMatch: true
+      };
+    });
+
+  test("http://localhost:3001/#my-hash (query hash)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/#my-hash",
+      });
+
+      return url.location.hash;
+    })
+    .isDeepEqual(function () {
+      return "#my-hash";
+    });
+
+  test("http://localhost:3001/#my-hash (hash toString)")
+    .this(function () {
+      let url = new URL({
+        href : "http://localhost:3001/#my-hash",
+      });
+
+      url.hash.value = "#changed-hash";
+      return url.toString();
+    })
+    .isDeepEqual(function () {
+      return "http://localhost:3001/#changed-hash";
     });
 
   load();
