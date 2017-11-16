@@ -23,6 +23,7 @@ location.setSchema(String)
 url.set({
   pathname? : String,
   href?     : String,
+  hash?     : String,
   origin?   : String,
   search?   : String
 });
@@ -226,4 +227,15 @@ The `copy` method will create a whole new object instance
 
 ```javascript
 location.copy();
+```
+
+#### Hash
+```javascript
+const url = new Url({ href: "http://www.location.com/#hash" });
+url.hash -> Hash { value : "#hash" }
+url.location.hash -> "#hash"
+
+// You can omit the "#" when setting the value
+url.hash.value = "my-hash";
+url.hash.toString() -> "#my-hash";
 ```

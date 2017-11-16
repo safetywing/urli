@@ -4,6 +4,10 @@ module.exports = class Hash {
   }
 
   toString() {
-    return this.value ? this.value : "";
+    let str = this.value || "";
+    if (str && str[0] !== "#") {
+      str = "#" + str;
+    }
+    return str;
   }
 };
