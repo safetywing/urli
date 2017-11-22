@@ -1,8 +1,6 @@
 const tinytest = require("tiny-test");
 const URL      = require("../index.js");
 
-console.log(URL);
-
 tinytest(function (test, load) {
   test("http://www.google.com/")
     .this(function () {
@@ -31,7 +29,6 @@ tinytest(function (test, load) {
   test("http://www.google.com/ (object.origin)")
     .this(function () {
       let l = new URL({ origin: "http://www.google.com/" });
-      console.log(l);
       return l;
     })
     .isDeepEqual(function () {
@@ -829,7 +826,6 @@ tinytest(function (test, load) {
       let url = new URL({
         href : "http://localhost:3001/#my-hash",
       });
-      console.log(url);
       return url;
     })
     .isDeepEqual(function () {
@@ -890,6 +886,25 @@ tinytest(function (test, load) {
     })
     .isDeepEqual(function () {
       return "http://localhost:3001/#changed-hash";
+    });
+
+  test("https://maps.googleapis.com/maps/api/place/textsearch/json (Copy)")
+    .this(function () {
+      let url  = new URL("https://maps.googleapis.com/maps/api/place/textsearch/json");
+      let copy = url.copy();
+
+      copy.search.query = "test";
+
+      return [
+        url.toString(),
+        copy.toString()
+      ];
+    })
+    .isDeepEqual(function () {
+      return [
+        "https://maps.googleapis.com/maps/api/place/textsearch/json",
+        "https://maps.googleapis.com/maps/api/place/textsearch/json?query=test"
+      ];
     });
 
   load();

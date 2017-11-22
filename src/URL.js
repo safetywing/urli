@@ -138,11 +138,7 @@ class URL {
   }
 
   copy() {
-    let x = new URL(this.__params, {
-      pathname : this.__pathname,
-      search   : this.__search,
-      origin   : this.__origin
-    });
+    let x = new URL(this.__params, this.location);
 
     for (var k in this.search) {
       if (this.search.hasOwnProperty(k)) {
