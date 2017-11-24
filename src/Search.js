@@ -2,7 +2,12 @@ const clear = require("./clear");
 
 const reserved = {
   schema     : true,
-  schemaKeys : true
+  schemaKeys : true,
+  toString   : true,
+  getSchema  : true,
+  fromString : true,
+  set        : true,
+  get        : true,
 };
 
 function valueByType(str) {
@@ -205,8 +210,10 @@ Search.prototype.toString = function () {
 
 Search.prototype.set = function (opt) {
   for (var k in opt) {
-    if (opt.hasOwnProperty(k)) {
-      this[typeof this[k] === "function" ? "_" + k : k] = opt[k];
+    if (opt.hasOwnProperty(k) && !reserved[k]) {
+      this[k] = opt[k];
+    } else if (reserved[k]) {
+      throw "Invalid property \"" + k + "\", this is a reserved key";
     }
   }
   return this;
