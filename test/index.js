@@ -20,8 +20,8 @@ tinytest(function (test, load) {
         },
         hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
-        search  : { __schema: {}, __schemaKeys: [] },
-        params  : { __path: [], __params: [], __isMatch: true },
+        search  : { schema: {}, schemaKeys: [] },
+        params  : { path: [], params: [], isMatch: true },
         isMatch : true
       };
     });
@@ -44,8 +44,8 @@ tinytest(function (test, load) {
         },
         hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
-        search  : { __schema: {}, __schemaKeys: [] },
-        params  : { __path: [], __params: [], __isMatch: true },
+        search  : { schema: {}, schemaKeys: [] },
+        params  : { path: [], params: [], isMatch: true },
         isMatch : true
       };
     });
@@ -68,8 +68,8 @@ tinytest(function (test, load) {
         },
         hash    : { value: "" },
         origin  : { value: "http://www.google.com" },
-        search  : { __schema: {}, __schemaKeys: [] },
-        params  : { __path: [], __params: [], __isMatch: true },
+        search  : { schema: {}, schemaKeys: [] },
+        params  : { path: [], params: [], isMatch: true },
         isMatch : true
       };
     });
@@ -92,11 +92,11 @@ tinytest(function (test, load) {
         },
         hash   : { value: "" },
         origin : { value: "http://www.google.com" },
-        search : { __schema: {}, __schemaKeys: [] },
+        search : { schema: {}, schemaKeys: [] },
         params : {
-          __path    : [ "cat" ],
-          __params  : [ ":x" ],
-          __isMatch : true,
+          path    : [ "cat" ],
+          params  : [ ":x" ],
+          isMatch : true,
           x         : "cat"
         },
         isMatch : true,
@@ -121,11 +121,11 @@ tinytest(function (test, load) {
         },
         hash   : { value: "" },
         origin : { value: "http://www.google.com" },
-        search : { __schema: {}, __schemaKeys: [] },
+        search : { schema: {}, schemaKeys: [] },
         params : {
-          __path    : [ "cats", "dogs" ],
-          __params  : [ ":x", ":y" ],
-          __isMatch : true,
+          path    : [ "cats", "dogs" ],
+          params  : [ ":x", ":y" ],
+          isMatch : true,
           x         : "cats",
           y         : "dogs",
         },
@@ -151,11 +151,11 @@ tinytest(function (test, load) {
         },
         hash   : { value: "" },
         origin : { value: "http://www.google.com" },
-        search : { __schema: {}, __schemaKeys: [] },
+        search : { schema: {}, schemaKeys: [] },
         params : {
-          __path    : [ "cats" ],
-          __params  : [ ":x", ":y" ],
-          __isMatch : false,
+          path    : [ "cats" ],
+          params  : [ ":x", ":y" ],
+          isMatch : false,
           x         : "cats",
           y         : undefined,
         },
@@ -184,15 +184,15 @@ tinytest(function (test, load) {
         origin : { value: "http://www.google.com" },
 
         search : {
-          __schema     : {},
-          __schemaKeys : [],
+          schema     : {},
+          schemaKeys : [],
           search       : 1
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -222,21 +222,21 @@ tinytest(function (test, load) {
         hash   : { value: "" },
 
         search: {
-          __schema     : {
+          schema     : {
             search : {
               type : "array",
               delimiter : "+",
               map  : []
             }
           },
-          __schemaKeys : [ "search" ],
+          schemaKeys : [ "search" ],
           search       : [ 1, 2 ]
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -267,15 +267,15 @@ tinytest(function (test, load) {
         hash   : { value: "" },
 
         search: {
-          __schema     : {},
-          __schemaKeys : [],
+          schema     : {},
+          schemaKeys : [],
           search       : [ 1, 2 ]
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -306,21 +306,21 @@ tinytest(function (test, load) {
         hash : { value: "" },
 
         search: {
-          __schema     : {
+          schema     : {
             search: {
               delimiter : "+",
               type      : "object",
               map       : [ "number" ]
             }
           },
-          __schemaKeys : [ "search" ],
+          schemaKeys : [ "search" ],
           search       : { number: 1 }
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -351,21 +351,21 @@ tinytest(function (test, load) {
         hash : { value: "" },
 
         search: {
-          __schema     : {
+          schema     : {
             search: {
               delimiter : "+",
               type      : "array",
               map       : [ "number" ]
             }
           },
-          __schemaKeys : [ "search" ],
+          schemaKeys : [ "search" ],
           search       : [{ number: 1 }, { number: 2 }]
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -524,14 +524,14 @@ tinytest(function (test, load) {
         hash : { value: "" },
 
         search: {
-          __schema     : {
+          schema     : {
             origin: {
               delimiter: "+",
               type : "object",
               map: [ { constant: "user" }, "userID", "section", "page" ]
             }
           },
-          __schemaKeys : [ "origin" ],
+          schemaKeys : [ "origin" ],
           origin       : {
             user: "user",
             userID: "98fjhd",
@@ -541,9 +541,9 @@ tinytest(function (test, load) {
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -575,14 +575,14 @@ tinytest(function (test, load) {
         hash : { value: "" },
 
         search: {
-          __schema     : {
+          schema     : {
             origin: {
               delimiter: "+",
               type : "object",
               map: [ { constant: "user" }, "userID", "section", "page" ]
             }
           },
-          __schemaKeys : [ "origin" ],
+          schemaKeys : [ "origin" ],
           origin       : {
             user: "user",
             userID: "98fjhd",
@@ -592,9 +592,9 @@ tinytest(function (test, load) {
         },
 
         params: {
-          __path    : [ "post", "p398dfjkj" ],
-          __params  : [],
-          __isMatch : true
+          path    : [ "post", "p398dfjkj" ],
+          params  : [],
+          isMatch : true
         },
 
         isMatch: true
@@ -845,14 +845,14 @@ tinytest(function (test, load) {
         },
 
         search: {
-          __schema     : {},
-          __schemaKeys : []
+          schema     : {},
+          schemaKeys : []
         },
 
         params: {
-          __path    : [],
-          __params  : [],
-          __isMatch : true
+          path    : [],
+          params  : [],
+          isMatch : true
         },
 
         hash: {

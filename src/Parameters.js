@@ -22,27 +22,27 @@ function maybeError(self, key) {
 }
 
 function Parameters(location) {
-  this.__path    = pathnameToArray(location.pathname);
-  this.__params  = pathnameToArray(location.params);
-  this.__isMatch = this.__params.length === 0 || this.__path.length === this.__params.length;
+  this.path    = pathnameToArray(location.pathname);
+  this.params  = pathnameToArray(location.params);
+  this.isMatch = this.params.length === 0 || this.path.length === this.params.length;
 
-  if (this.__params.length === 1 && this.__params[0] === "*") {
-    this.__params = this.__path.slice();
+  if (this.params.length === 1 && this.params[0] === "*") {
+    this.params = this.path.slice();
   }
 
-  for (let i = 0, n = this.__params.length; i < n; i++) {
+  for (let i = 0, n = this.params.length; i < n; i++) {
     if (
-      !this.__path[i] ||
-      (this.__params[i][0] !== ":" &&
-       this.__params[i] !== "*" &&
-       this.__params[i] !== this.__path[i])
+      !this.path[i] ||
+      (this.params[i][0] !== ":" &&
+       this.params[i] !== "*" &&
+       this.params[i] !== this.path[i])
     ) {
-      this.__isMatch = false;
+      this.isMatch = false;
     }
 
-    if (this.__params[i][0] === ":") {
-      maybeError(this, this.__params[i].slice(1));
-      this[this.__params[i].slice(1)] = this.__path[i];
+    if (this.params[i][0] === ":") {
+      maybeError(this, this.params[i].slice(1));
+      this[this.params[i].slice(1)] = this.path[i];
     }
   }
 }
@@ -52,10 +52,10 @@ Parameters.prototype.push = function (value) {
     for (var k in value) {
       maybeError(this, k);
       this[k] = value[k];
-      this.__params.push(value[k]);
+      this.params.push(value[k]);
     }
   } else {
-    this.__params.push(value);
+    this.params.push(value);
   }
 
   return this;
@@ -66,10 +66,10 @@ Parameters.prototype.unshift = function (value) {
     for (var k in value) {
       maybeError(this, k);
       this[k] = value[k];
-      this.__params.unshift(value[k]);
+      this.params.unshift(value[k]);
     }
   } else {
-    this.__params.unshift(value);
+    this.params.unshift(value);
   }
 
   return this;
@@ -87,14 +87,14 @@ Parameters.prototype.is = function (value) {
 };
 
 Parameters.prototype.toString = function () {
-  const length = this.__params.length;
+  const length = this.params.length;
   const query  = new Array(length);
 
   for (var i = 0; i < length; i++) {
     query[i] = (
-      this.__params[i][0] === ":"
-        ? this[this.__params[i].slice(1)]
-        : this.__params[i]
+      this.params[i][0] === ":"
+        ? this[this.params[i].slice(1)]
+        : this.params[i]
     );
   }
 

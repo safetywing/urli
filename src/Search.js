@@ -1,5 +1,9 @@
-const set   = require("./set");
 const clear = require("./clear");
+
+const reserved = {
+  schema     : true,
+  schemaKeys : true
+};
 
 function valueByType(str) {
   let n = Number(str);
@@ -41,8 +45,8 @@ Search.prototype.getSchema = function (searchSchema) {
   let isArray = false;
   let element;
 
-  this.__schema = {};
-  this.__schemaKeys = [];
+  this.schema = {};
+  this.schemaKeys = [];
 
   for (var i = 0, n = split.length; i < n; i++) {
     if (split[i].length) {
@@ -53,8 +57,8 @@ Search.prototype.getSchema = function (searchSchema) {
         ? element[0].slice(0, -2)
         : element[0];
 
-      this.__schemaKeys.push(element[0]);
-      this.__schema[element[0]] = (
+      this.schemaKeys.push(element[0]);
+      this.schema[element[0]] = (
         getType(element[1], isArray
           ? "array"
           : "object"
@@ -81,7 +85,7 @@ Search.prototype.fromString = function (search) {
       this[list[i][0]] = this[list[i][0]] || [];
     }
 
-    t.schema   = this.__schema[list[i][0]];
+    t.schema   = this.schema[list[i][0]];
     t.isSchema = t.schema && t.schema.map.length;
 
     if (t.isSchema) {
@@ -115,12 +119,12 @@ Search.prototype.fromString = function (search) {
     }
   }
 
-  for (var i = 0, n = this.__schemaKeys.length; i < n; i++) {
-    if (typeof this[this.__schemaKeys[i]] === "undefined") {
-      if (this.__schema[this.__schemaKeys[i]].type === "array") {
-        this[this.__schemaKeys[i]] = [];
-      } else if (this.__schema[this.__schemaKeys[i]].type === "object") {
-        this[this.__schemaKeys[i]] = {};
+  for (var i = 0, n = this.schemaKeys.length; i < n; i++) {
+    if (typeof this[this.schemaKeys[i]] === "undefined") {
+      if (this.schema[this.schemaKeys[i]].type === "array") {
+        this[this.schemaKeys[i]] = [];
+      } else if (this.schema[this.schemaKeys[i]].type === "object") {
+        this[this.schemaKeys[i]] = {};
       }
     }
   }
@@ -166,15 +170,15 @@ Search.prototype.toString = function () {
   const search = [];
 
   for (let k in this) {
-    if (this.hasOwnProperty(k) && k.substring(0, 2) !== "__") {
-      if (this.__schema[k] && this.__schema[k].map.length) {
-        if (this.__schema[k].type === "array") {
+    if (this.hasOwnProperty(k) && !reserved[k]) {
+      if (this.schema[k] && this.schema[k].map.length) {
+        if (this.schema[k].type === "array") {
           search.push(
-            schemaArrayToString(k, this[k], this.__schema[k])
+            schemaArrayToString(k, this[k], this.schema[k])
           );
-        } else if (this.__schema[k].type === "object") {
+        } else if (this.schema[k].type === "object") {
           search.push(
-            schemaObjectToString(k, this[k], this.__schema[k])
+            schemaObjectToString(k, this[k], this.schema[k])
           );
         }
       } else if (

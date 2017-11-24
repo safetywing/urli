@@ -33,7 +33,7 @@ class URL {
     this.search  = new Search(this.location);
     this.params  = new Parameters(this.location);
     this.hash    = new Hash(this.location);
-    this.isMatch = this.params.__isMatch;
+    this.isMatch = this.params.isMatch;
   }
 
   getLocationString(loc) {
