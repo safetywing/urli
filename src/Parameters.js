@@ -6,8 +6,8 @@ function pathnameToArray(pathname) {
     pathname = pathname.substring(1);
   }
 
-  if (pathname.slice(-1) === "/") {
-    pathname = pathname.slice(0, -1);
+  if (pathname[pathname.length - 1] === "/") {
+    pathname = pathname.substring(0, pathname.length - 1);
   }
 
   return pathname.length ? pathname.split("/") : [];
