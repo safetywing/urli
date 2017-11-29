@@ -726,6 +726,17 @@ tinytest(function (test, load) {
       return true;
     });
 
+  test("/startswith (startsWith)")
+    .this(function () {
+      let url = new URL({
+        href: "/login"
+      });
+      return url.params.startsWith("/login");
+    })
+    .isDeepEqual(function () {
+      return true;
+    });
+
   test("http://localhost:3000/startswith/ (startsWith multiple)")
     .this(function () {
       let url = new URL({
