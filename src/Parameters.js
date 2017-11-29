@@ -78,8 +78,8 @@ Parameters.prototype.unshift = function (value) {
 Parameters.prototype.startsWith = function (value) {
   const str  = this.toString();
   const path = "/" + pathnameToArray(value).join("/");
-  const n    = path.length - 1;
-  return str.indexOf(path) === 0 && (str[n] === "/" || !str[n]);
+  const n    = path.length;
+  return str.indexOf(path) === 0 && (str[n] === "/" || !str[n + 1]);
 };
 
 Parameters.prototype.is = function (value) {
